@@ -71,6 +71,7 @@
             console.log(response)
             var data = response.details.data;
             var postsInfo = $("#posts_info")
+            postsInfo.empty();
               data.forEach(function(post, index){
                 var likeCount = (typeof post.likes != "undefined" && post.likes.data != "undefined") ? post.likes.data.length : 0;
                 var shareCount  = post.shares.count;
