@@ -80,7 +80,7 @@
               postsInfo.append("<li>" + post.message+ postMeta + "</li>");
 
             })
-
+          $("#submit").prop('disabled', false);
           }).error(function(error){
             $('.results').append("<span>"+error+"</span>");
           })
