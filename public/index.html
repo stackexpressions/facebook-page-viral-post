@@ -73,9 +73,9 @@
             var postsInfo = $("#posts_info")
             postsInfo.empty();
               data.forEach(function(post, index){
-                var likeCount = (typeof post.likes != "undefined" && post.likes.data != "undefined") ? post.likes.data.length : 0;
-                var shareCount  = post.shares.count;
-                var commentCount = (typeof post.comments !="undefined" && post.comments.data != "undefined") ? post.comments.data.length : 0;
+                var likeCount = (typeof post.likes != "undefined" &&  typeof post.likes.data != "undefined") ? post.likes.data.length : 0;
+                var shareCount  = (typeof post.shares !="undefined" && typeof post.shares.count != "undefined") ? post.shares.count : 0;
+                var commentCount = (typeof post.comments !="undefined" && typeof post.comments.data != "undefined") ? post.comments.data.length : 0;
 
               var postMeta = "<ul>" 
                              + "<li> Likes " + likeCount+ "</li>" 
