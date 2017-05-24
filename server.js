@@ -11,6 +11,8 @@ app.get('/page/:pageName', function(req, res){
 		res.send({
 			details: data
 		})	
+	}).catch(function(err){
+		res.status(500).send({error: err})
 	})
 	
 })
@@ -29,16 +31,37 @@ var getFacebookPageInfo = function(pageName) {
 	console.log("Page nem ", pageName);
 	return new Promise(function(resolve, reject) {
 
-	FB.setAccessToken('YOUR_ACCESS_TOKEN');
- FB.api( pageName+'/posts', function (res) {
+	//FB.setAccessToken('YOUR_ACCESS_TOKEN');
+var access_token	
+
+FB.api('oauth/access_token', {
+    client_id: 'APP_ID',
+    client_secret: 'APP_SECRET',
+    grant_type: 'client_credentials'
+}, function (res) {
+    if(!res || res.error) {
+        console.log(!res ? 'error occurred' : res.error);
+        return;
+    }
+ 
+    access_token = res.access_token;
+
+
+if(typeof access_token != "undefined") {
+	FB.setAccessToken(access_token);
+}
+
+ FB.api( pageName+'/posts?fields=shares,comments,likes,message', function (res) {
   if(!res || res.error) {
    console.log(!res ? 'error occurred' : res.error);
-   return;
+   reject(res.error);
   }
   else {
   	
   	resolve( res);
   }
+});
+
 });
 
 })
