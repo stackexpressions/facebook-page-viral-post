@@ -72,10 +72,14 @@
             var data = response.details.data;
             var postsInfo = $("#posts_info")
               data.forEach(function(post, index){
+                var likeCount = (typeof post.likes != "undefined" && post.likes.data != "undefined") ? post.likes.data.length : 0;
+                var shareCount  = post.shares.count;
+                var commentCount = (typeof post.comments !="undefined" && post.comments.data != "undefined") ? post.comments.data.length : 0;
+
               var postMeta = "<ul>" 
-                             + "<li> Likes " + post.likes.data.length+ "</li>" 
-                             + "<li> Shares " + post.shares.count+ "</li>" 
-                             + "<li> Comments " + post.comments.data.length+ "</li>" 
+                             + "<li> Likes " + likeCount+ "</li>" 
+                             + "<li> Shares " + shareCount+ "</li>" 
+                             + "<li> Comments " + commentCount + "</li>" 
                              + "</ul>";
               postsInfo.append("<li>" + post.message+ postMeta + "</li>");
 
