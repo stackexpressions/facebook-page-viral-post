@@ -61,7 +61,7 @@
       $(function(){
 
         $('form').on('submit', function(e){
-          $("#submit").prop('disabled', true);
+          $("#submit").attr('disabled', true);
           e.preventDefault();
 
           var pageName = $('#page_name').val();
@@ -80,7 +80,7 @@
               postsInfo.append("<li>" + post.message+ postMeta + "</li>");
 
             })
-          $("#submit").prop('disabled', false);
+          $("#submit").attr('disabled', false);
           }).error(function(error){
             $('.results').append("<span>"+error+"</span>");
           })
