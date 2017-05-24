@@ -38,9 +38,10 @@
               </div>
 
           </form>
-
+            <i>App is still under developement. Right now it gets latest posts of a page.</i>
         </div> 
         <div class="well">
+
           <h2>Page <span id="result_page_name"></span></h2>
           <ul class="list-unstyled " id="posts_info">
               
@@ -64,7 +65,7 @@
           var pageName = $('#page_name').val();
           $("#result_page_name").text(pageName);
           $.get('/page/'+ pageName).success(function(response){
-            console.log(response)
+            
             var data = response.details.data;
             var postsInfo = $("#posts_info")
             data.forEach(function(post, index){
