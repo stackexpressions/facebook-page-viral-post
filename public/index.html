@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Find Facebook Page Viral Posts</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+        <h1 class="text-center">Find Facebook Page Viral Posts Easily</h1>
+        <div class="well">
+          <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-addon">https://facebook.com/</div>
+                  <input type="text" id="page_name" class="form-control" placeholder="boredpanda">
+                </div>
+                
+
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Find Now</button>
+              </div>
+
+          </form>
+
+        </div> 
+        <div class="well">
+          <h2>Page <span id="result_page_name"></span></h2>
+          <ul class="list-unstyled " id="posts_info">
+              
+          </ul>
+        </div>   
+
+          </div>
+        </div>
+        
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+
+        $('form').on('submit', function(e){
+          e.preventDefault();
+          var pageName = $('#page_name').val();
+          $("#result_page_name").text(pageName);
+          $.get('/page/'+ pageName).success(function(response){
+            console.log(response)
+            var data = response.details.data;
+            var postsInfo = $("#posts_info")
+            data.forEach(function(post, index){
+              var postMeta = "<ul>" 
+                             + "<li> Likes " + post.likes.data.length+ "</li>" 
+                             + "<li> Shares " + post.shares.count+ "</li>" 
+                             + "<li> Comments " + post.comments.data.length+ "</li>" 
+                             + "</ul>";
+              postsInfo.append("<li>" + post.message+ postMeta + "</li>");
+
+            })
+
+          }).error(function(error){
+            console.log(error)
+          })
+        })
+      })
+
+    </script>
+  </body>
+</html>
