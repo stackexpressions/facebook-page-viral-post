@@ -46,12 +46,11 @@ FB.api('oauth/access_token', {
  
     access_token = res.access_token;
 
-
 if(typeof access_token != "undefined") {
 	FB.setAccessToken(access_token);
 }
 
- FB.api( pageName+'/posts?fields=shares,comments,likes,message', function (res) {
+ FB.api( pageName+'/posts?fields=shares,comments,likes,message,picture', function (res) {
   if(!res || res.error) {
    console.log(!res ? 'error occurred' : res.error);
    reject(res.error);
@@ -63,6 +62,7 @@ if(typeof access_token != "undefined") {
 });
 
 });
+
 
 })
 

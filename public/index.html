@@ -22,7 +22,7 @@
     <div class="container">
         <div class="row">
           <div class="col-md-8 col-md-offset-2">
-        <h1 class="text-center">Find Facebook Page Viral Posts Easily</h1>
+        <h1 class="text-center">Find Facebook Page Viral Posts</h1>
         <div class="text-center">
           <ul class="list-unstyled list-inline">
             <li><a href="https://github.com/stackexpressions/facebook-page-viral-post">GitHub</a></li>
@@ -51,7 +51,7 @@
         <div class="well results">
 
           <h2>Page <span id="result_page_name"></span></h2>
-          <ul class="list-unstyled " id="posts_info">
+          <ul class="media-list " id="posts_info">
               
           </ul>
         </div>   
@@ -85,12 +85,28 @@
                 var shareCount  = (typeof post.shares !="undefined" && typeof post.shares.count != "undefined") ? post.shares.count : 0;
                 var commentCount = (typeof post.comments !="undefined" && typeof post.comments.data != "undefined") ? post.comments.data.length : 0;
 
-              var postMeta = "<ul>" 
+              var picture = '<img src="' + post.picture + '" class="media-object" />' 
+
+              var postMeta = "<ul class='list-unstyled list-inline'>"
+
                              + "<li> Likes " + likeCount+ "</li>" 
                              + "<li> Shares " + shareCount+ "</li>" 
                              + "<li> Comments " + commentCount + "</li>" 
                              + "</ul>";
-              postsInfo.append("<li>" + post.message+ postMeta + "</li>");
+              
+              var postUI = '<li class="media">' 
+                        + '<div class="media-left">'
+                        
+                        + picture
+                        
+                        + '</div>'
+                        + '<div class="media-body">'
+                        + '<div>' + post.message + '</div>'
+                        + postMeta
+                        + '</div>'
+                        + '</li>';
+
+              postsInfo.append(postUI);
 
             })
           $("#submit").attr('disabled', false);
