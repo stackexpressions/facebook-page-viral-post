@@ -23,7 +23,7 @@ app.get('/', function (req, res) {
 
 })
 
-app.listen(3333, function () {
+app.listen(3334, function () {
   console.log('listening on 3333!')
 })
 
@@ -35,28 +35,25 @@ var getFacebookPageInfo = function(pageName) {
 var access_token	
 
 FB.api('oauth/access_token', {
-    client_id: 'APP_ID',
-    client_secret: 'APP_SECRET',
+    client_id: '', //APP_ID
+    client_secret: '', //APP_SECRET
     grant_type: 'client_credentials'
 }, function (res) {
     if(!res || res.error) {
         console.log(!res ? 'error occurred' : res.error);
         return;
     }
- 
     access_token = res.access_token;
-
 if(typeof access_token != "undefined") {
 	FB.setAccessToken(access_token);
 }
 
- FB.api( pageName+'/posts?fields=shares,comments,likes,message,picture', function (res) {
+ FB.api( pageName+'/posts?fields=shares,comments.summary(true),likes.summary(true),message,picture', function (res) {
   if(!res || res.error) {
    console.log(!res ? 'error occurred' : res.error);
    reject(res.error);
   }
-  else {
-  	
+  else {  	
   	resolve( res);
   }
 });
